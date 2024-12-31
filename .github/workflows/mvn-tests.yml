@@ -56,6 +56,6 @@ jobs:
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
+          report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/index.html'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_name: Automation Tests Report
