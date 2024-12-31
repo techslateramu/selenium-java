@@ -58,3 +58,4 @@ jobs:
         with:
           report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Automation Tests Report

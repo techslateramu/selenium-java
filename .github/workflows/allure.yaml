@@ -3,7 +3,7 @@ name: Run Selenium Tests with Allure Reporting
 on:
   push:
     branches:
-      - main
+      - allure
 
 jobs:
   test:
