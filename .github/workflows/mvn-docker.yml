@@ -1,0 +1,46 @@
+name: Run Selenium Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      # Set up Docker to run the job inside a Selenium container with Chromium
+      - name: Set up Selenium Docker container
+        run: |
+          docker pull selenium/standalone-chrome:latest
+          docker run -d --name selenium-chrome -p 4444:4444 selenium/standalone-chrome:latest
+
+      # Run Maven Tests inside the Docker container
+      - name: Run Maven Tests
+        run: |
+          docker exec selenium-chrome /bin/bash -c "mvn test --batch-mode --fail-at-end"
+
+      # Display the contents of the workspace for debugging purposes
+      - name: LS
+        run: |
+          echo "Displaying Surefire reports:"
+          ls -R /home/runner/work/selenium-java
+  
+      # Publish Test Report
+      - name: Publish Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
+        with:
+          reportPaths: '**/surefire-reports/TEST-*.xml'
+
+      # Upload Surefire reports including .xml, .html, .css, and screenshots
+      - name: Upload Surefire Reports and Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/*

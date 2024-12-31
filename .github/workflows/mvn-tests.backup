@@ -1,0 +1,148 @@
+name: Run Selenium Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      # Set up Python for WebDriver management
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      # Remove any existing Chromium/Chrome installations
+      - name: Remove Chrome
+        run: sudo apt purge -y google-chrome-stable || true
+      - name: Remove default Chromium
+        run: sudo apt purge -y chromium-browser || true
+
+      # Install a new version of Chromium
+      - name: Install a new Chromium
+        run: sudo apt install -y chromium-browser
+
+      # Install necessary Python packages for WebDriver management
+      # - name: Install Python packages
+      #   run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
+
+      # Sudo Apt Get Update
+      - name: Sudo Apt Get Update
+        run: sudo apt-get update
+
+      # Install Linux Libs
+      - name: Install Linux Libs
+        run: sudo apt-get install -y libnss3 libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2
+
+      # Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      # Set up Maven
+      - name: Set up Maven
+        uses: s4u/maven-settings-action@v2
+
+      # Install dependencies and run Maven tests
+      - name: Run Maven Tests
+        run: mvn test --batch-mode --fail-at-end
+      
+      - name: LS
+        run: |
+          echo "Displaying Surefire reports:"
+          ls -R /home/runner/work/selenium-java
+  
+      - name: Publish Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
+        with:
+          reportPaths: '**/surefire-reports/TEST-*.xml'
+
+
+      # Upload Surefire reports including .xml, .html, .css, and screenshots
+      - name: Upload Surefire Reports and Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/*
+
+  # display-surefire-reports:
+  #   runs-on: ubuntu-latest
+  #   needs: test
+  #   if: always()  # Ensure this job runs regardless of previous job success or failure
+
+  #   steps:
+  #     # Download Surefire reports
+  #     - name: Download Surefire reports
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: surefire-reports
+      
+  #           # Show Surefire reports
+  #     - name: LS
+  #       run: |
+  #         echo "Displaying Surefire reports:"
+  #         ls -R /home/runner/work/selenium-java/selenium-java
+
+
+  #     # # Move surefire-reports to the target folder
+  #     # - name: Move Surefire reports to target folder
+  #     #   run: |
+  #     #     echo "Moving Surefire reports to target folder..."
+  #     #     mkdir -p target/surefire-reports
+  #     #     mv surefire-reports/* target/surefire-reports/
+
+  #     # # Show Surefire reports
+  #     # - name: Show Surefire reports
+  #     #   run: |
+  #     #     echo "Displaying Surefire reports:"
+  #     #     ls -R target/surefire-reports
+
+  #     # Display HTML Report (if available)
+  #     - name: Display HTML Report (if available)
+  #       run: cat /home/runner/work/selenium-java/selenium-java/index.html
+  
+  #     #   # Publish Surefire reports to GitHub Pages
+  #     # - name: Deploy HTML report to GitHub Pages
+  #     #   uses: peaceiris/actions-gh-pages@v3
+  #     #   with:
+  #     #     github_token: ${{ secrets.GITHUB_TOKEN }}
+  #     #     publish_dir: /home/runner/work/selenium-java/selenium-java/
+
+  # push_to_gh_pages:
+  #   runs-on: ubuntu-latest
+  #   needs: test
+  #   if: always()  # Ensure this job runs regardless of previous job success or failure
+  
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     # Set up Git config
+  #     - name: Set up Git config
+  #       run: |
+  #         git config user.name "github-actions"
+  #         git config user.email "github-actions@github.com"
+
+  #     # Create a commit (example)
+  #     - name: Create a commit
+  #       run: |
+  #         echo "Changes made" > changes.txt
+  #         git add changes.txt
+  #         git commit -m "Add changes"
+
+  #     # Push the commit or tag to the gh-pages branch
+  #     - name: Push changes to gh-pages
+  #       run: |
+  #         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/techslateramu/selenium-java.git
+  #         git push origin gh-pages
