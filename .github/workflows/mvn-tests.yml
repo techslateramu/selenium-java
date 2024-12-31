@@ -70,31 +70,29 @@ jobs:
     if: always()  # Ensure this job runs regardless of previous job success or failure
 
     steps:
+      # Download Surefire reports
       - name: Download Surefire reports
         uses: actions/download-artifact@v3
         with:
           name: surefire-reports
-      - name: Extract Surefire reports
-        run: |
-          echo "Extracting Surefire reports..."
-          unzip -q surefire-reports.zip -d surefire-reports
 
+      # Move surefire-reports to the target folder
+      - name: Move Surefire reports to target folder
+        run: |
+          echo "Moving Surefire reports to target folder..."
+          mkdir -p target/surefire-reports
+          mv surefire-reports/* target/surefire-reports/
+
+      # Show Surefire reports
       - name: Show Surefire reports
         run: |
-          # Show contents of the Surefire reports directory
           echo "Displaying Surefire reports:"
-          ls -R /home
+          ls -R target/surefire-reports
 
-      - name: Show Surefire reports
-        run: |
-          # Show contents of the Surefire reports directory
-          echo "Displaying Surefire reports:"
-          ls -R /home/runner/work/selenium-java/selenium-java
-
-
+      # Display HTML Report (if available)
       - name: Display HTML Report (if available)
         run: |
-          if [ -f /home/runner/work/selenium-java/selenium-java/surefire-reports/index.html ]; then
+          if [ -f target/surefire-reports/index.html ]; then
             echo "Displaying HTML report:"
-            cat /home/runner/work/selenium-java/selenium-java/surefire-reports/index.html
+            cat target/surefire-reports/index.html
           fi
