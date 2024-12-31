@@ -34,12 +34,13 @@ jobs:
       - name: Install Python packages
         run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
 
+      # Sudo Apt Get Update
       - name: Sudo Apt Get Update
         run: sudo apt-get update
 
+      # Install Linux Libs
       - name: Install Linux Libs
         run: sudo apt-get install -y libnss3 libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2
-
 
       # Set up Java
       - name: Set up Java
@@ -55,3 +56,33 @@ jobs:
       # Install dependencies and run Maven tests
       - name: Run Maven Tests
         run: mvn test
+
+      # Upload Surefire reports including .xml, .html, .css, and screenshots
+      - name: Upload Surefire Reports and Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/*
+
+  display-surefire-reports:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Download Surefire reports
+        uses: actions/download-artifact@v3
+        with:
+          name: surefire-reports
+
+      - name: Show Surefire reports
+        run: |
+          # Show contents of the Surefire reports directory
+          echo "Displaying Surefire reports:"
+          ls -R ./surefire-reports
+
+      - name: Display HTML Report (if available)
+        run: |
+          if [ -f ./surefire-reports/index.html ]; then
+            echo "Displaying HTML report:"
+            cat ./surefire-reports/index.html
+          fi
