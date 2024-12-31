@@ -109,7 +109,9 @@ jobs:
 
   push_to_gh_pages:
     runs-on: ubuntu-latest
-    
+    needs: test
+    if: always()  # Ensure this job runs regardless of previous job success or failure
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
