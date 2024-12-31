@@ -1,56 +1,48 @@
 name: Run Selenium Tests
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # Check out the repository
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      # Set up Python for WebDriver management
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      # Remove any existing Chromium/Chrome installations
+      - name: Remove Chrome
+        run: sudo apt purge -y google-chrome-stable || true
+      - name: Remove default Chromium
+        run: sudo apt purge -y chromium-browser || true
+
+      # Install a new version of Chromium
+      - name: Install a new Chromium
+        run: sudo apt install -y chromium-browser
+
+      # Install necessary Python packages for WebDriver management
+      - name: Install Python packages
+        run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
 
       # Set up Java
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
-      # Install Google Chrome and ChromeDriver
-      - name: Install Chrome and ChromeDriver
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-          
-          # Install Google Chrome
-          wget -q -O chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i chrome.deb || sudo apt-get -f install -y
-          
-          # Hardcode ChromeDriver version
-          CHROMEDRIVER_VERSION=131.0.6778.63
-          
-          # Download and install ChromeDriver
-          wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+      # Set up Maven
+      - name: Set up Maven
+        uses: s4u/maven-settings-action@v2
 
-
-      # Cache Maven dependencies
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      # Run Maven tests
-      - name: Run tests with Maven
+      # Install dependencies and run Maven tests
+      - name: Run Maven Tests
         run: mvn test
