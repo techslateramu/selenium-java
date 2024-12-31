@@ -1,0 +1,68 @@
+name: Run Selenium Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      # Remove any existing Chromium/Chrome installations
+      - name: Remove Chrome
+        run: sudo apt purge -y google-chrome-stable || true
+      - name: Remove default Chromium
+        run: sudo apt purge -y chromium-browser || true
+
+      # Install a new version of Chromium
+      - name: Install a new Chromium
+        run: sudo apt install -y chromium-browser
+
+      # Sudo Apt Get Update
+      - name: Sudo Apt Get Update
+        run: sudo apt-get update
+
+      # Install Linux Libs
+      - name: Install Linux Libs
+        run: sudo apt-get install -y libnss3 libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2
+
+      # Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      # Set up Maven
+      - name: Set up Maven
+        uses: s4u/maven-settings-action@v2
+
+      # Install Allure Commandline
+      - name: Install Allure Commandline
+        run: |
+          sudo apt-get install -y unzip
+          curl -o allure-commandline.zip -L https://github.com/allure-framework/allure2/releases/download/2.18.1/allure-2.18.1.zip
+          unzip allure-commandline.zip -d allure
+          sudo mv allure/allure-2.18.1 /usr/local/bin/allure
+
+      # Install dependencies and run Maven tests
+      - name: Run Maven Tests
+        run: mvn clean test --batch-mode --fail-at-end
+
+      # Generate Allure Report
+      - name: Generate Allure Report
+        run: allure generate target/allure-results --clean -o target/allure-report
+
+      # Publish Allure Report as a GitHub Page
+      - name: Publish Allure Report
+        if: success() || failure()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: target/allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
