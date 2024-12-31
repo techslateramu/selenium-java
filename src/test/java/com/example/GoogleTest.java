@@ -17,7 +17,7 @@ public class GoogleTest {
         options.addArguments("--remote-allow-origins=*");
 
         // Set the path to the ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        // System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
 
         driver = new ChromeDriver(options);
     }
