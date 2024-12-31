@@ -79,11 +79,12 @@ jobs:
         run: |
           # Show contents of the Surefire reports directory
           echo "Displaying Surefire reports:"
-          ls -R ./surefire-reports
+          ls -R /home/runner/work/selenium-java/selenium-java/surefire-reports
+
 
       - name: Display HTML Report (if available)
         run: |
-          if [ -f ./surefire-reports/index.html ]; then
+          if [ -f /home/runner/work/selenium-java/selenium-java/surefire-reports/index.html ]; then
             echo "Displaying HTML report:"
-            cat ./surefire-reports/index.html
+            cat /home/runner/work/selenium-java/selenium-java/surefire-reports/index.html
           fi
