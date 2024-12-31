@@ -74,6 +74,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: surefire-reports
+      - name: Extract Surefire reports
+        run: |
+          echo "Extracting Surefire reports..."
+          unzip -q surefire-reports.zip -d surefire-reports
 
       - name: Show Surefire reports
         run: |
