@@ -28,7 +28,7 @@ public class GoogleTest {
 
         // Assertion to check the page title
         String pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Google1", "Page title does not match!");
+        Assert.assertEquals(pageTitle, "Google", "Page title does not match!");
 
         // // Assertion to check if the Google search button is present
         // WebElement searchButton = driver.findElement(By.name("btnK"));
