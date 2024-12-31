@@ -35,11 +35,11 @@ jobs:
         run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
 
       # Set up Java
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       # Set up Maven
       - name: Set up Maven
