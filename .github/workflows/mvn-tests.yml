@@ -34,6 +34,13 @@ jobs:
       - name: Install Python packages
         run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
 
+      - name: Sudo Apt Get Update
+        run: sudo apt-get update
+
+      - name: Install Linux Libs
+        run: sudo apt-get install -y libnss3 libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2
+
+
       # Set up Java
       - name: Set up Java
         uses: actions/setup-java@v3

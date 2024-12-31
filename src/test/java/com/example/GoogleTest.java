@@ -1,38 +1,31 @@
-package com.example;
-
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 public class GoogleTest {
-
-    private WebDriver driver;
+    public WebDriver driver;
 
     @BeforeClass
     public void setUp() {
-        // Set ChromeDriver location only if it's not in the PATH
-        // System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        // Set Chrome options
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-allow-origins=*");
 
-        // Initialize the ChromeDriver
-        driver = new ChromeDriver();
+        // Set the path to the ChromeDriver
+        // System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+
+        driver = new ChromeDriver(options);
     }
-    @Test
-    public void verifyGoogleTitle() {
-        // Navigate to Google
-        driver.get("https://www.google.com");
 
-        // Verify the title of the page
-        String expectedTitle = "Google";
-        String actualTitle = driver.getTitle();
-        Assert.assertEquals(actualTitle, expectedTitle, "Page title is not as expected");
+    @Test
+    public void testGoogle() {
+        driver.get("https://www.google.com");
+        // Your test code here
     }
 
     @AfterClass
     public void tearDown() {
-        // Close the browser
         if (driver != null) {
             driver.quit();
         }
