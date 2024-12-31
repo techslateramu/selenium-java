@@ -1,4 +1,4 @@
-name: Run Selenium Tests
+name: Run Selenium Tests with Docker
 
 on:
   push:
@@ -14,16 +14,17 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v2
 
-      # Set up Docker to run the job inside a Selenium container with Chromium
+      # Set up Docker to run Selenium container with Chrome
       - name: Set up Selenium Docker container
         run: |
           docker pull selenium/standalone-chrome:latest
           docker run -d --name selenium-chrome -p 4444:4444 selenium/standalone-chrome:latest
 
-      # Run Maven Tests inside the Docker container
-      - name: Run Maven Tests
+      # Set up Maven Docker container to run tests
+      - name: Set up Maven Docker container
         run: |
-          docker exec selenium-chrome /bin/bash -c "mvn test --batch-mode --fail-at-end"
+          docker pull maven:3.8.4-openjdk-11
+          docker run --rm -v $(pwd):/usr/src/mymaven -w /usr/src/mymaven maven:3.8.4-openjdk-11 mvn test --batch-mode --fail-at-end
 
       # Display the contents of the workspace for debugging purposes
       - name: LS
