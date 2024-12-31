@@ -67,6 +67,7 @@ jobs:
   display-surefire-reports:
     runs-on: ubuntu-latest
     needs: test
+    if: always()  # Ensure this job runs regardless of previous job success or failure
 
     steps:
       - name: Download Surefire reports
