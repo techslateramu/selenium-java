@@ -22,17 +22,26 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      # Set up Maven
-      - name: Set up Maven
-        uses: s4u/maven-settings-action@v2
+      # Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
 
-      # Run Maven Tests and Generate Allure Report
-      - name: Run Maven Tests with Allure Reporting
-        run: mvn clean test allure:report --batch-mode --fail-at-end
+      # Run Maven Tests
+      - name: Run Maven Tests
+        run: mvn clean test --batch-mode --fail-at-end
+
+      # Generate Allure Report
+      - name: Generate Allure Report
+        run: mvn allure:report --batch-mode
 
       # Publish Allure Report as GitHub Pages
       - name: Publish Allure Report
-        if: success() || failure()
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: target/site/allure-maven-plugin
