@@ -14,11 +14,11 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v2
 
-      # Set up Python for WebDriver management
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+      # # Set up Python for WebDriver management
+      # - name: Set up Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: '3.9'
 
       # Remove any existing Chromium/Chrome installations
       - name: Remove Chrome
@@ -66,8 +66,7 @@ jobs:
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
         with:
-          reportPaths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
-
+          report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
 
       # Upload Surefire reports including .xml, .html, .css, and screenshots
       - name: Upload Surefire Reports and Artifacts
@@ -75,74 +74,3 @@ jobs:
         with:
           name: surefire-reports
           path: target/surefire-reports/*
-
-  # display-surefire-reports:
-  #   runs-on: ubuntu-latest
-  #   needs: test
-  #   if: always()  # Ensure this job runs regardless of previous job success or failure
-
-  #   steps:
-  #     # Download Surefire reports
-  #     - name: Download Surefire reports
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: surefire-reports
-      
-  #           # Show Surefire reports
-  #     - name: LS
-  #       run: |
-  #         echo "Displaying Surefire reports:"
-  #         ls -R /home/runner/work/selenium-java/selenium-java
-
-
-  #     # # Move surefire-reports to the target folder
-  #     # - name: Move Surefire reports to target folder
-  #     #   run: |
-  #     #     echo "Moving Surefire reports to target folder..."
-  #     #     mkdir -p target/surefire-reports
-  #     #     mv surefire-reports/* target/surefire-reports/
-
-  #     # # Show Surefire reports
-  #     # - name: Show Surefire reports
-  #     #   run: |
-  #     #     echo "Displaying Surefire reports:"
-  #     #     ls -R target/surefire-reports
-
-  #     # Display HTML Report (if available)
-  #     - name: Display HTML Report (if available)
-  #       run: cat /home/runner/work/selenium-java/selenium-java/index.html
-  
-  #     #   # Publish Surefire reports to GitHub Pages
-  #     # - name: Deploy HTML report to GitHub Pages
-  #     #   uses: peaceiris/actions-gh-pages@v3
-  #     #   with:
-  #     #     github_token: ${{ secrets.GITHUB_TOKEN }}
-  #     #     publish_dir: /home/runner/work/selenium-java/selenium-java/
-
-  # push_to_gh_pages:
-  #   runs-on: ubuntu-latest
-  #   needs: test
-  #   if: always()  # Ensure this job runs regardless of previous job success or failure
-  
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-
-  #     # Set up Git config
-  #     - name: Set up Git config
-  #       run: |
-  #         git config user.name "github-actions"
-  #         git config user.email "github-actions@github.com"
-
-  #     # Create a commit (example)
-  #     - name: Create a commit
-  #       run: |
-  #         echo "Changes made" > changes.txt
-  #         git add changes.txt
-  #         git commit -m "Add changes"
-
-  #     # Push the commit or tag to the gh-pages branch
-  #     - name: Push changes to gh-pages
-  #       run: |
-  #         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/techslateramu/selenium-java.git
-  #         git push origin gh-pages
