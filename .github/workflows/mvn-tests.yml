@@ -75,6 +75,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: surefire-reports
+      
+            # Show Surefire reports
+      - name: LS
+        run: |
+          echo "Displaying Surefire reports:"
+          ls -R /home/runner/work/selenium-java/selenium-java
+
 
       # Move surefire-reports to the target folder
       - name: Move Surefire reports to target folder
