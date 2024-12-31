@@ -83,23 +83,20 @@ jobs:
           ls -R /home/runner/work/selenium-java/selenium-java
 
 
-      # Move surefire-reports to the target folder
-      - name: Move Surefire reports to target folder
-        run: |
-          echo "Moving Surefire reports to target folder..."
-          mkdir -p target/surefire-reports
-          mv surefire-reports/* target/surefire-reports/
+      # # Move surefire-reports to the target folder
+      # - name: Move Surefire reports to target folder
+      #   run: |
+      #     echo "Moving Surefire reports to target folder..."
+      #     mkdir -p target/surefire-reports
+      #     mv surefire-reports/* target/surefire-reports/
 
-      # Show Surefire reports
-      - name: Show Surefire reports
-        run: |
-          echo "Displaying Surefire reports:"
-          ls -R target/surefire-reports
+      # # Show Surefire reports
+      # - name: Show Surefire reports
+      #   run: |
+      #     echo "Displaying Surefire reports:"
+      #     ls -R target/surefire-reports
 
       # Display HTML Report (if available)
       - name: Display HTML Report (if available)
-        run: |
-          if [ -f target/surefire-reports/index.html ]; then
-            echo "Displaying HTML report:"
-            cat target/surefire-reports/index.html
-          fi
+        run: cat /home/runner/work/selenium-java/selenium-java/index.html
+  
