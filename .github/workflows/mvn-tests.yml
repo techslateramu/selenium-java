@@ -100,3 +100,9 @@ jobs:
       - name: Display HTML Report (if available)
         run: cat /home/runner/work/selenium-java/selenium-java/index.html
   
+        # Publish Surefire reports to GitHub Pages
+      - name: Deploy HTML report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /home/runner/work/selenium-java/selenium-java/
