@@ -52,10 +52,18 @@ jobs:
           echo "Displaying Surefire reports:"
           ls -R /home/runner/work/selenium-java
   
-      - name: Publish Test Report
+      # - name: Publish Test Report
+      #   if: success() || failure()
+      #   uses: scacap/action-surefire-report@v1
+      #   with:
+      #     report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     check_name: Automation Tests Report
+
+      # Publish Surefire HTML Report
+      - name: Publish Surefire HTML Report
         if: success() || failure()
-        uses: scacap/action-surefire-report@v1
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/index.html'
+          publish_dir: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/'  # Ensure this directory contains index.html
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          check_name: Automation Tests Report
