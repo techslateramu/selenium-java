@@ -79,7 +79,13 @@ jobs:
         run: |
           # Show contents of the Surefire reports directory
           echo "Displaying Surefire reports:"
-          ls -R /home/runner/work/selenium-java/selenium-java/surefire-reports
+          ls -R /home
+
+      - name: Show Surefire reports
+        run: |
+          # Show contents of the Surefire reports directory
+          echo "Displaying Surefire reports:"
+          ls -R /home/runner/work/selenium-java/selenium-java
 
 
       - name: Display HTML Report (if available)
