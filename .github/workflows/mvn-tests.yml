@@ -31,8 +31,8 @@ jobs:
         run: sudo apt install -y chromium-browser
 
       # Install necessary Python packages for WebDriver management
-      - name: Install Python packages
-        run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
+      # - name: Install Python packages
+      #   run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
 
       # Sudo Apt Get Update
       - name: Sudo Apt Get Update
@@ -57,9 +57,17 @@ jobs:
       - name: Run Maven Tests
         run: mvn test --batch-mode --fail-at-end
       
+      - name: LS
+        run: |
+          echo "Displaying Surefire reports:"
+          ls -R /home/runner/work/selenium-java
+  
       - name: Publish Test Report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
+        with:
+          reportPaths: '**/surefire-reports/TEST-*.xml'
+
 
       # Upload Surefire reports including .xml, .html, .css, and screenshots
       - name: Upload Surefire Reports and Artifacts
