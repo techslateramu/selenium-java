@@ -100,9 +100,35 @@ jobs:
       - name: Display HTML Report (if available)
         run: cat /home/runner/work/selenium-java/selenium-java/index.html
   
-        # Publish Surefire reports to GitHub Pages
-      - name: Deploy HTML report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /home/runner/work/selenium-java/selenium-java/
+      #   # Publish Surefire reports to GitHub Pages
+      # - name: Deploy HTML report to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: /home/runner/work/selenium-java/selenium-java/
+
+  push_to_gh_pages:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Git config
+      - name: Set up Git config
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      # Create a commit (example)
+      - name: Create a commit
+        run: |
+          echo "Changes made" > changes.txt
+          git add changes.txt
+          git commit -m "Add changes"
+
+      # Push the commit or tag to the gh-pages branch
+      - name: Push changes to gh-pages
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/techslateramu/selenium-java.git
+          git push origin gh-pages
