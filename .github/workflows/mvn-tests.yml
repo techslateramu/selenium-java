@@ -15,15 +15,15 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v2
 
-      # Remove any existing Chromium/Chrome installations
-      - name: Remove Chrome
-        run: sudo apt purge -y google-chrome-stable || true
-      - name: Remove default Chromium
-        run: sudo apt purge -y chromium-browser || true
+      # # Remove any existing Chromium/Chrome installations
+      # - name: Remove Chrome
+      #   run: sudo apt purge -y google-chrome-stable || true
+      # - name: Remove default Chromium
+      #   run: sudo apt purge -y chromium-browser || true
 
-      # Install a new version of Chromium
-      - name: Install a new Chromium
-        run: sudo apt install -y chromium-browser
+      # # Install a new version of Chromium
+      # - name: Install a new Chromium
+      #   run: sudo apt install -y chromium-browser
 
       # Sudo Apt Get Update
       - name: Sudo Apt Get Update
