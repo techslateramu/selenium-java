@@ -61,10 +61,18 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_name: Automation Tests Report
 
+      # # Publish Surefire HTML Report
+      # - name: Publish Surefire HTML Report
+      #   if: success() || failure()
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     publish_dir: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/'  # Ensure this directory contains index.html
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+
       # Publish Surefire HTML Report
-      - name: Publish Surefire HTML Report
+      - name: Publish Extent Reports
         if: success() || failure()
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/'  # Ensure this directory contains index.html
+          publish_dir: '/home/runner/work/selenium-java/selenium-java/target/'  # Ensure this directory contains index.html
           github_token: ${{ secrets.GITHUB_TOKEN }}
