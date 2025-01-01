@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-01-01T04:42:29 UTC" name="Surefire suite" finished-at="2025-01-01T04:42:32 UTC" duration-ms="3209">
+  <suite started-at="2025-01-01T09:42:44 IST" name="Surefire suite" finished-at="2025-01-01T09:43:17 IST" duration-ms="32452">
     <groups>
     </groups>
-    <test started-at="2025-01-01T04:42:29 UTC" name="Surefire test" finished-at="2025-01-01T04:42:32 UTC" duration-ms="3209">
+    <test started-at="2025-01-01T09:42:44 IST" name="Surefire test" finished-at="2025-01-01T09:43:17 IST" duration-ms="32452">
       <class name="GoogleTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:42:29 UTC" name="setUp" finished-at="2025-01-01T04:42:31 UTC" duration-ms="2177" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:GoogleTest@22635ba0]" started-at="2025-01-01T09:42:44 IST" name="setUp" finished-at="2025-01-01T09:42:55 IST" duration-ms="11026" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testGoogle()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:42:31 UTC" name="testGoogle" finished-at="2025-01-01T04:42:31 UTC" duration-ms="652" status="PASS">
+        <test-method signature="testGoogle()[pri:0, instance:GoogleTest@22635ba0]" started-at="2025-01-01T09:42:55 IST" name="testGoogle" finished-at="2025-01-01T09:43:16 IST" duration-ms="20292" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testGoogle -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:42:31 UTC" name="tearDown" finished-at="2025-01-01T04:42:32 UTC" duration-ms="349" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:GoogleTest@22635ba0]" started-at="2025-01-01T09:43:16 IST" name="tearDown" finished-at="2025-01-01T09:43:17 IST" duration-ms="994" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
