@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
@@ -38,24 +37,21 @@ public class GoogleTest {
     @Test
     public void testGoogle() {
         test = extent.createTest("Google Search Page Test", "Verifies Google search page title and elements");
+        try {
+            // Navigate to Google
+            driver.get("https://www.google.com");
+            test.info("Navigated to Google homepage.");
 
-        // Navigate to Google
-        driver.get("https://www.google.com");
-        test.info("Navigated to Google homepage.");
+            // Verify page title
+            String pageTitle = driver.getTitle();
+            Assert.assertEquals(pageTitle, "Google1", "Page title does not match!");
+            test.pass("Page title is verified successfully.");
 
-        // Verify page title
-        String pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Google1", "Page title does not match!");
-        test.pass("Page title is verified successfully.");
-
-        // Additional verifications (uncomment if needed)
-        // WebElement searchButton = driver.findElement(By.name("btnK"));
-        // Assert.assertTrue(searchButton.isDisplayed(), "Search button is not displayed on the page.");
-        // test.pass("Google search button is displayed.");
-
-        // WebElement googleLogo = driver.findElement(By.id("hplogo"));
-        // Assert.assertTrue(googleLogo.isDisplayed(), "Google logo is not displayed on the page.");
-        // test.pass("Google logo is displayed.");
+        } catch (AssertionError | Exception e) {
+            // Log the failure to ExtentReports
+            test.fail("Test failed with exception: " + e.getMessage());
+            throw e; // Rethrow the exception to fail the test in TestNG
+        }
     }
 
     @AfterClass
@@ -63,11 +59,8 @@ public class GoogleTest {
         if (driver != null) {
             driver.quit();
         }
-        test.info("Browser closed successfully.");
-
         if (extent != null) {
             extent.flush();
         }
-        test.info("ExtentReports flushed and test execution completed.");
     }
 }

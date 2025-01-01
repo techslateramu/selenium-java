@@ -15,16 +15,6 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v2
 
-      # # Remove any existing Chromium/Chrome installations
-      # - name: Remove Chrome
-      #   run: sudo apt purge -y google-chrome-stable || true
-      # - name: Remove default Chromium
-      #   run: sudo apt purge -y chromium-browser || true
-
-      # # Install a new version of Chromium
-      # - name: Install a new Chromium
-      #   run: sudo apt install -y chromium-browser
-
       # # Sudo Apt Get Update
       # - name: Sudo Apt Get Update
       #   run: sudo apt-get update
@@ -60,14 +50,6 @@ jobs:
           report_paths: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/TEST-*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_name: Automation Tests Report
-
-      # # Publish Surefire HTML Report
-      # - name: Publish Surefire HTML Report
-      #   if: success() || failure()
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     publish_dir: '/home/runner/work/selenium-java/selenium-java/target/surefire-reports/'  # Ensure this directory contains index.html
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # Publish Surefire HTML Report
       - name: Publish Extent Reports
