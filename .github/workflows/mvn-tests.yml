@@ -15,14 +15,6 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v2
 
-      # # Sudo Apt Get Update
-      # - name: Sudo Apt Get Update
-      #   run: sudo apt-get update
-
-      # # Install Linux Libs
-      # - name: Install Linux Libs
-      #   run: sudo apt-get install -y libnss3 libgdk-pixbuf2.0-0 libxss1 libappindicator3-1 libasound2
-
       # Set up Java
       - name: Set up Java
         uses: actions/setup-java@v3
