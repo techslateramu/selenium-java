@@ -1,8 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
@@ -12,12 +9,6 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class GoogleTest {
     private WebDriver driver;
@@ -46,25 +37,20 @@ public class GoogleTest {
     @Test
     public void testGoogle() {
         test = extent.createTest("Google Search Page Test", "Verifies Google search page title and elements");
-
         try {
             // Navigate to Google
             driver.get("https://www.google.com");
-            test.info("Navigated to Google homepage.")
-                .addScreenCaptureFromPath(captureScreenshot("Google_Homepage"));
+            test.info("Navigated to Google homepage.");
 
             // Verify page title
             String pageTitle = driver.getTitle();
             Assert.assertEquals(pageTitle, "Google", "Page title does not match!");
-            test.pass("Page title is verified successfully.")
-                .addScreenCaptureFromPath(captureScreenshot("Page_Title_Verification"));
+            test.pass("Page title is verified successfully.");
 
         } catch (AssertionError | Exception e) {
-            // Log the failure and capture a screenshot
-            String screenshotPath = captureScreenshot("Failure_Screenshot");
-            test.fail("Test failed with exception: " + e.getMessage())
-                .addScreenCaptureFromPath(screenshotPath);
-            throw e; // Rethrow the exception to mark the test as failed
+            // Log the failure to ExtentReports
+            test.fail("Test failed with exception: " + e.getMessage());
+            throw e; // Rethrow the exception to fail the test in TestNG
         }
     }
 
@@ -76,20 +62,5 @@ public class GoogleTest {
         if (extent != null) {
             extent.flush();
         }
-    }
-
-    private String captureScreenshot(String screenshotName) {
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        String filePath = "target/screenshots/" + screenshotName + "_" + timestamp + ".png";
-
-        try {
-            File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File destFile = new File(filePath);
-            FileUtils.copyFile(srcFile, destFile);
-        } catch (IOException e) {
-            System.out.println("Error while capturing screenshot: " + e.getMessage());
-        }
-
-        return filePath;
     }
 }
