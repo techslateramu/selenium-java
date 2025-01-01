@@ -21,7 +21,7 @@ public class GoogleTest {
    ExtentSparkReporter sparkReporter = new ExtentSparkReporter("target/index.html");
    sparkReporter.config().setReportName("Automation Test Report");
    sparkReporter.config().setDocumentTitle("Automation Report - Selenium TestNG");
-   sparkReporter.config().setTheme(Theme.STANDARD); // Use Theme.DARK for a dark theme
+//    sparkReporter.config().setTheme(Theme.STANDARD); // Use Theme.DARK for a dark theme
    sparkReporter.config().setEncoding("UTF-8");
 
    extent = new ExtentReports();
