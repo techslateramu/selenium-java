@@ -45,7 +45,7 @@ public class GoogleTest {
 
         // Verify page title
         String pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Google", "Page title does not match!");
+        Assert.assertEquals(pageTitle, "Google1", "Page title does not match!");
         test.pass("Page title is verified successfully.");
 
         // Additional verifications (uncomment if needed)
