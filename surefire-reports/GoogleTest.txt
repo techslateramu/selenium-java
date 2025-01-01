@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
 Test set: GoogleTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.354 s <<< FAILURE! - in GoogleTest
-GoogleTest.testGoogle  Time elapsed: 0.643 s  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.163 s <<< FAILURE! - in GoogleTest
+GoogleTest.testGoogle  Time elapsed: 0.693 s  <<< FAILURE!
 java.lang.AssertionError: Page title does not match! expected [Google1] but found [Google]
 	at org.testng.Assert.fail(Assert.java:111)
 	at org.testng.Assert.failNotEquals(Assert.java:1578)
 	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
 	at org.testng.Assert.assertEquals(Assert.java:132)
 	at org.testng.Assert.assertEquals(Assert.java:656)
-	at GoogleTest.testGoogle(GoogleTest.java:48)
+	at GoogleTest.testGoogle(GoogleTest.java:47)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-01-01T04:19:19 UTC" name="Surefire suite" finished-at="2025-01-01T04:19:22 UTC" duration-ms="2956">
+  <suite started-at="2025-01-01T04:22:30 UTC" name="Surefire suite" finished-at="2025-01-01T04:22:34 UTC" duration-ms="3729">
     <groups>
     </groups>
-    <test started-at="2025-01-01T04:19:19 UTC" name="Surefire test" finished-at="2025-01-01T04:19:22 UTC" duration-ms="2956">
+    <test started-at="2025-01-01T04:22:30 UTC" name="Surefire test" finished-at="2025-01-01T04:22:34 UTC" duration-ms="3729">
       <class name="GoogleTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:19:19 UTC" name="setUp" finished-at="2025-01-01T04:19:21 UTC" duration-ms="1886" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:22:30 UTC" name="setUp" finished-at="2025-01-01T04:22:33 UTC" duration-ms="2625" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testGoogle()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:19:21 UTC" name="testGoogle" finished-at="2025-01-01T04:19:22 UTC" duration-ms="638" status="FAIL">
+        <test-method signature="testGoogle()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:22:33 UTC" name="testGoogle" finished-at="2025-01-01T04:22:33 UTC" duration-ms="687" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[Page title does not match! expected [Google1] but found [Google]]]>
@@ -23,7 +23,7 @@ at org.testng.Assert.failNotEquals(Assert.java:1578)
 at org.testng.Assert.assertEqualsImpl(Assert.java:150)
 at org.testng.Assert.assertEquals(Assert.java:132)
 at org.testng.Assert.assertEquals(Assert.java:656)
-at GoogleTest.testGoogle(GoogleTest.java:48)
+at GoogleTest.testGoogle(GoogleTest.java:47)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -63,7 +63,7 @@ at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testGoogle -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:19:22 UTC" name="tearDown" finished-at="2025-01-01T04:19:22 UTC" duration-ms="396" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:GoogleTest@702b8b12]" started-at="2025-01-01T04:22:33 UTC" name="tearDown" finished-at="2025-01-01T04:22:34 UTC" duration-ms="377" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
