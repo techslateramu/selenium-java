@@ -17,12 +17,22 @@ public class GoogleTest {
 
     @BeforeClass
     public void setUp() {
-        // Set up ExtentReports
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter("target/index.html");
-        extent = new ExtentReports();
-        extent.attachReporter(sparkReporter);
+   // Set up ExtentReports with detailed configurations
+   ExtentSparkReporter sparkReporter = new ExtentSparkReporter("target/index.html");
+   sparkReporter.config().setReportName("Automation Test Report");
+   sparkReporter.config().setDocumentTitle("Automation Report - Selenium TestNG");
+   sparkReporter.config().setTheme(Theme.STANDARD); // Use Theme.DARK for a dark theme
+   sparkReporter.config().setEncoding("UTF-8");
 
-        // Set Chrome options for headless mode
+   extent = new ExtentReports();
+   extent.attachReporter(sparkReporter);
+
+   // Add system information to the report
+   extent.setSystemInfo("Tester", "Your Name");
+   extent.setSystemInfo("Environment", "QA");
+   extent.setSystemInfo("Browser", "Chrome");
+   extent.setSystemInfo("OS", System.getProperty("os.name"));
+   extent.setSystemInfo("Java Version", System.getProperty("java.version"));        // Set Chrome options for headless mode
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
